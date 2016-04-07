@@ -1,0 +1,158 @@
+<?php
+
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ * Description of AxPageSize
+ *
+ * @author Ardha
+ */
+class AxPageSize extends CWidget {
+    const DEFAULT_RANGE = 20;
+    const DEFAULT_END = 100;
+    const DEFAULT_PAGE_SIZE = 20;
+
+    public $varPageSize = "pageSize";
+    public $header = "Display:";
+    public $footer = "per page";
+    public $tag = "div";
+    public $classDiv = "ma-display";
+    public $htmlOptions = array();
+    public $enablePagination = true;
+    public $afterUpdate;
+    private $_pages;
+    private $_starPageSize = self::DEFAULT_PAGE_SIZE;
+    private $_rangePageSize = self::DEFAULT_RANGE;
+    private $_endPageSize = self::DEFAULT_END;
+    private $_script;
+
+//    public static function getCurrentPageSize() {
+//        $cookies = Yii::app()->request->cookies;
+//
+//        if (isset($cookies[$this->varPageSize]))
+//            return $cookies[$this->varPageSize]->value;
+//        else
+//            return $this->startPageSize;
+//    }
+
+    public static function getCurrentPageSize() {
+        $cookies = Yii::app()->request->cookies;
+
+        if (isset($cookies["pageSize"]))
+            return $cookies["pageSize"]->value;
+        else
+            return self::DEFAULT_PAGE_SIZE;
+    }
+
+    public function renderListPager() {
+        if (!$this->enablePagination)
+            return;
+
+        $list = array();
+        $class = 'AxLinkListPager';
+        $list['pages'] = $this->_pages;
+        $list['listPagerOnly'] = true;
+
+        $this->widget($class, $list);
+    }
+
+    /**
+     * Returns the pagination information used by this pager.
+     * @return CPagination the pagination information
+     */
+    public function getPages() {
+        if ($this->_pages === null)
+            $this->_pages = $this->createPages();
+        return $this->_pages;
+    }
+
+    /**
+     * Sets the pagination information used by this pager.
+     * @param CPagination $pages the pagination information
+     */
+    public function setPages($pages) {
+        $this->_pages = $pages;
+    }
+
+    public function getStartPageSize() {
+        return $this->_starPageSize;
+    }
+
+    public function setStartPageSize($val) {
+        if (($this->_starPageSize = $val ) <= 0)
+            return CPagination::DEFAULT_PAGE_SIZE;
+    }
+
+    public function getRangePageSize() {
+        return $this->_rangePageSize;
+    }
+
+    public function setRangePageSize($val) {
+        if (($this->_rangePageSize = $val ) <= 0)
+            return self::DEFAULT_RANGE;
+    }
+
+    public function getEndPageSize() {
+        return $this->_endPageSize;
+    }
+
+    public function setEndPageSize($val) {
+        if (($this->_endPageSize = $val ) <= 0)
+            return self::DEFAULT_END;
+    }
+
+    public function getListPageSize() {
+        $list = array();
+        $i = $this->startPageSize;
+        while ($i <= $this->endPageSize) {
+            $list[$i] = $i;
+            $i += $this->rangePageSize;
+        }
+        return $list;
+    }
+
+    public function registerClientScript() {
+        $cs = Yii::app()->clientScript;
+        $cs->registerCoreScript("jquery");
+        $cs->registerCoreScript("jquery.ui");
+        $path = CHtml::asset(Yii::getPathOfAlias('ext.widgets.grid.js.jqueryCookies') . '.js');
+        $cs->registerScriptFile($path);
+        $this->_script =
+                "$('#{$this->htmlOptions["id"]}').live('change',function(){
+                $.cookie('{$this->varPageSize}', $(this).val(),{path: '/'});";
+        if ($this->afterUpdate == null)
+            $this->_script.="window.location.reload();";
+        else
+            $this->_script.="window.location.reload();";//$this->_script .= $this->afterUpdate;
+        $this->_script.="});";
+        $cs->registerScript("pageSize_" . $this->htmlOptions["id"], $this->_script);
+    }
+
+    public function getScript() {
+        return $this->_script;
+    }
+
+    public function init() {
+        if (!isset($this->htmlOptions["id"]))
+            $this->htmlOptions["id"] = $this->getId();
+        $this->registerClientScript();
+        echo CHtml::openTag($this->tag, array("class" => $this->classDiv));
+    }
+
+    public function run() {
+        $currentPage = self::getCurrentPageSize();
+        echo $this->header;
+        echo "&nbsp;";
+        echo CHtml::dropDownList("pageSize", $currentPage, $this->listPageSize, $this->htmlOptions);
+        echo "&nbsp;";
+        echo $this->footer;
+        echo CHtml::closeTag($this->tag);
+        $this->renderListPager();
+    }
+
+}
+
+?>

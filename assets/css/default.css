@@ -1,0 +1,173 @@
+.topic {
+    background: url("../icons/post.gif") no-repeat scroll 0 0 transparent;
+    padding: 2px 0 0 20px;
+}
+.topic b {
+    font-family: tahoma, verdana;
+    display: block;
+    color: #333;
+}
+
+.author{
+    color: #333
+}
+
+.post-date {
+    font-weight:bold;
+    color:#333;
+}
+
+#app-portal-body{
+    border: 0;
+}
+.x-panel-ghost {
+    z-index: 1;
+}
+.x-portal-body {
+    padding: 0 0 0 8px;
+}
+.x-portal .x-portal-column {
+    /* columns must have vertical padding to avoid losing dimensions when empty */
+    padding: 8px 8px 0 0;
+}
+.x-portal .x-panel-dd-spacer {
+    border: 2px dashed #99bbe8;
+    background: #f6f6f6;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    margin-bottom: 10px;
+}
+.x-portlet {
+    margin-bottom:10px;
+    padding: 1px;
+}
+.x-portlet .x-panel-body {
+    background: #fff;
+}
+.portlet-content {
+    padding: 10px;
+    font-size: 11px;
+}
+
+#app-options .portlet-content {
+    padding: 5px;
+    font-size: 12px;
+}
+
+.ux-notification-window .x-window-body {
+    text-align: center;
+    padding: 15px 5px 15px 5px;
+    width: 200px;
+}
+.ux-notification-icon-information {
+    background-image: url('../icons/information.png');
+}
+.ux-notification-icon-error {
+    background-image: url('../icons/exclamation-red.png');
+}
+
+.infowindow-base {
+    background: url("../images/inner-shadow.png") repeat-x scroll 0 0 #FFFFFF;
+    border-top: 1px solid #CECECE;
+    min-height: 50px;
+    padding: 15px 25px;
+}
+
+.table-tup-bpp-render-panel{
+    width: 900px;
+    font-size: 11px;
+    text-align: left;
+    margin: 10px auto;
+    vertical-align: top;
+}
+
+.table-tup-bpp-render-panel td{
+    padding: 1px 4px 1px 4px;
+}
+
+.table-tup-bpp-render-inner{
+    padding-top: 20px;
+    border: #333 solid 1px;
+}
+.table-tup-bpp-render-inner th{
+    padding: 2px;
+    border-right: #333 solid 1px;
+    border-bottom: #333 solid 1px;
+    text-align: center;
+}
+
+.table-tup-bpp-render-inner td{
+    border-right: #333 solid 1px;
+    font-size: 10px;
+    border-bottom: #ddd solid 1px;
+}
+
+.my-programs-table{
+    padding: 10px;
+    width: 100%;
+}
+
+.my-programs-table tr{
+    overflow: auto;
+    position: inherit;
+}
+
+.my-programs-table td{
+    border: 1px solid;
+    padding: 4px;
+}
+
+table.displayed {
+    margin: 0;
+}
+
+table.display .document {
+    border-bottom: 1px dashed #E6E6E6;
+    border-right: 1px solid #E6E6E6;
+    border-top: 0 solid #D6D6D6;
+    line-height: 18px;
+    padding: 2px 5px;
+}
+
+table.display .indocument {
+    border-bottom: 1px dashed #E6E6E6;
+    border-right: 1px solid #E6E6E6;
+    border-top: 0 solid #D6D6D6;
+    line-height: 18px;
+    background-color: #FCFEFC;
+    padding: 2px 5px;
+}
+
+.pagging-number{
+    border-color: #CECECE;
+    border-style: solid;
+    border-width: 1px;
+    cursor: pointer;
+    padding: 0 4px 0 4px;
+    margin: 0 3px 0 3px;
+}
+
+.pagging-active{
+    background-color: #CECECE;
+    border-color: #232323;
+    cursor: auto;
+}
+
+.bg-icon{
+    background-repeat: no-repeat;
+    background-position: left center;
+}
+
+.progressbar {
+    border-radius: 3px;
+    margin-top: 2px;
+    border-color: black;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.progressbar div {
+    height: 10px;
+    border-radius: 3px;
+    font-size: 8px;
+}

@@ -1,0 +1,415 @@
+.icon-none {
+    display: none !important;
+}
+.icon-home{
+    background-image: url('../icons/home.png');
+}
+.icon-search{
+    background-image: url('../icons/search.png');
+}
+.icon-delete{
+    background-image: url('../icons/action_delete.png');
+}
+.icon-add{
+    background-image: url('../icons/add.png');
+}
+.icon-users{
+    background-image: url('../icons/users.png');
+}
+.icon-config{
+    background-image: url('../icons/config.png') !important;
+}
+.icon-logout{
+    background-image: url('../icons/logout.png');
+}
+.icon-grid{
+    background-image: url('../icons/grid.png');
+}
+.icon-image{
+    background-image: url('../icons/logo.png');
+    background-repeat: no-repeat;
+}
+.icon-main-menu {
+    background-image: url("../icons/home.png") !important;
+}
+.icon-base{
+    background-image: url("../icons/Preview_16x16.png") !important;
+}
+.icon-refresh {
+    background-image: url("../icons/refresh.png") !important;
+}
+
+.icon-information{
+    background-image: url("../icons/information.png") !important;
+}
+.icon-building{
+    background-image: url("../icons/building.png") !important;
+}
+
+.icon-building-pencil{
+    background-image: url("../icons/building-pencil.png") !important;
+}
+
+.icon-dashboard{
+    background-image: url("../icons/dashboard.png") !important;
+}
+
+.icon-task{
+    background-image: url("../icons/task.png") !important;
+}
+
+.icon-mail{
+    background-image: url("../icons/mail.png") !important;
+}
+.icon-mail-open{
+    background-image: url("../icons/mail-open.png") !important;
+}
+.icon-mail-send{
+    background-image: url("../icons/mail-send.png") !important;
+}
+.icon-mail-open-document{
+    background-image: url("../icons/mail-open-document.png") !important;
+}
+.icon-mail-forward{
+    background-image: url("../icons/mail-forward.png") !important;
+}
+.icon-mail-reply{
+    background-image: url("../icons/mail-reply.png") !important;
+}
+.icon-mail-receive{
+    background-image: url("../icons/mail-receive.png") !important;
+}
+.icon-mail-plus{
+    background-image: url("../icons/mail-plus.png") !important;
+}
+.icon-mail-minus{
+    background-image: url("../icons/mail-minus.png") !important;
+}.icon-drive-arrow{
+    background-image: url("../icons/drive-arrow.png") !important;
+}
+
+
+.icon-programs{
+    background-image: url("../icons/programs.png") !important;
+}
+.icon-programs-commit{
+    background-image: url("../icons/commit-prog.png") !important;
+
+}
+
+.icon-arrange {
+    background-image: url("../icons/arrange.png") !important;
+}
+
+.icon-req {
+    background-image: url("../icons/req.png") !important;
+}
+.icon-req-list {
+    background-image: url("../icons/req-list.png") !important;
+}
+.icon-req-comm {
+    background-image: url("../icons/req-comm.png") !important;
+}
+
+.icon-stat-bar {
+    background-image: url("../icons/chart_bar.png") !important;
+}
+.icon-stat-curve {
+    background-image: url("../icons/chart_curve.png") !important;
+}
+.icon-stat-line {
+    background-image: url("../icons/chart_line.png") !important;
+}
+.icon-stat-pie {
+    background-image: url("../icons/chart_pie.png") !important;
+}
+
+.icon-app-config {
+    background-image: url("../icons/app-config.png") !important;
+}
+.icon-user-config {
+    background-image: url("../icons/user-config.png") !important;
+}
+.icon-system-config {
+    background-image: url("../icons/system-config.png") !important;
+}
+.icon-req-up {
+    background-image: url("../icons/icon-req-up.png") !important;
+}
+.icon-req-tu {
+    background-image: url("../icons/icon-req-up.png") !important;
+}
+.icon-req-gu {
+    background-image: url("../icons/icon-req-up.png") !important;
+}
+.icon-req-ls-gaji {
+    background-image: url("../icons/icon-req-up.png") !important;
+}
+.icon-req-ls-barang {
+    background-image: url("../icons/icon-req-up.png") !important;
+}
+.icon-req-ls-pihaktiga {
+    background-image: url("../icons/icon-req-up.png") !important;
+}
+.icon-req-ls-bansos {
+    background-image: url("../icons/icon-req-up.png") !important;
+}
+
+.upload-icon{
+    background-image: url("../icons/drive-upload.png") !important;
+}
+
+.icon-user-add {
+    background-image: url("../icons/user-add.gif") !important;
+}
+.icon-save {
+    background-image: url("../icons/save.png") !important;
+}
+.icon-user-delete{
+    background-image: url("../icons/user-delete.gif") !important;
+}
+.icon-tags{
+    background-image: url('../icons/tags-label.png') !important;
+}
+.icon-departement{
+    background-image: url('../icons/dep.png');
+}
+.icon-departement-plus{
+    background-image: url('../icons/block-plus.png');
+}
+.icon-plus-circle{
+    background-image: url('../icons/plus-circle.png');
+}.icon-tick-circle{
+    background-image: url('../icons/tick-circle.png');
+}
+.icon-pencil{
+    background-image: url('../icons/pencil.png');
+}
+.icon-key{
+    background-image: url('../icons/key.png');
+}
+.icon-disk-black{
+    background-image: url('../icons/disk-black.png');
+}
+.icon-minus-circle{
+    background-image: url('../icons/minus-circle.png');
+}
+.icon-building-plus{
+    background-image: url('../icons/building-plus.png');
+}
+.icon-home-plus{
+    background-image: url('../icons/home-plus.png');
+}
+.icon-user-plus{
+    background-image: url('../icons/user-plus.png');
+}
+.icon-user-pencil{
+    background-image: url('../icons/user-pencil.png');
+}
+.icon-bank{
+    background-image: url('../icons/bank.png');
+}
+.blue-document-word{
+    background-image: url('../icons/blue-document-word.png');
+}
+.folder-zipper{
+    background-image: url('../icons/folder-zipper.png');
+}
+.notebook-plus{
+    background-image: url('../icons/notebook--plus.png');
+}
+.icon-dir-bookmark{
+    background-image: url('../icons/dir-bookmark.png');
+}
+.icon-blogs-stack{
+    background-image: url('../icons/blogs-stack.png');
+}
+
+.toggle-expand{
+    background-image: url('../icons/toggle-expand.png');
+}
+.drive-download{
+    background-image: url('../icons/drive-download.png');
+}
+.icon-download{
+    background-image: url('../icons/Download_16x16.png') !important;
+}
+
+.arrow-180-medium{
+    background-image: url('../icons/arrow-180-medium.png');
+}
+
+.x-tree-node img.dir-bookmark, .x-tree-node-collapsed img.dir-bookmark{
+    background: url("../icons/dir-bookmark.png");
+}
+.x-tree-node-expanded img.dir-bookmark {
+    background: url("../icons/dir-bookmark.png");
+}
+.x-grid-tree-node-expanded .icon-departement{
+    background-image: url('../icons/dep.png');
+}
+
+.application-plus{
+    background-image: url('../icons/application-plus.png') !important;
+}
+
+.icon-doc, .icon-docx{
+    background-image: url('../icons/document-word.png');
+}
+.icon-pdf{
+    background-image: url('../icons/document-pdf.png');
+}
+.icon-xls, .icon-xlsx{
+    background-image: url('../icons/document-excel.png');
+}
+
+.icon-ppt, .icon-pptx{
+    background-image: url('../icons/document-powerpoint.png');
+}
+
+.icon-jpg, .icon-png, .icon-gif{
+    background-image: url('../icons/image.png');
+}
+
+.icon-spp{
+    background-image: url('../icons/icon-req-up.png');
+}
+
+.report-paper{
+    background-image: url('../icons/report-paper.png');
+}
+
+.blueprint{
+    background-image: url('../icons/blueprint.png');
+}
+
+.printer{
+    background-image: url('../icons/printer.png');
+}
+.arrow{
+    background-image: url('../icons/arrow.png');
+}
+.icon-lock{
+    background-image: url('../icons/lock.png');
+}
+.icon-lock-arrow{
+    background-image: url('../icons/lock-arrow.png');
+}
+.icon-lock-pencil{
+    background-image: url('../icons/lock-pencil.png');
+}
+.icon-lock-plus{
+    background-image: url('../icons/lock-plus.png');
+}
+.icon-lock-unlock{
+    background-image: url('../icons/lock-unlock.png');
+}
+.icon-lock-delete{
+    background-image: url('../icons/lock-minus.png');
+}
+.circle_green{
+    background-image: url('../icons/circle_green.png');
+}
+.circle_red{
+    background-image: url('../icons/circle_red.png');
+}
+.table-sheet{
+    background-image: url('../icons/table-sheet.png');
+}
+.icon-spp{
+    background-image: url('../icons/application-form.png');
+}
+.icon-app{
+    background-image: url('../icons/application-form.png') !important;
+}
+.icon-desktop{
+    background-image: url('../icons/desktop.png') !important;
+}
+.icon-function{
+    background-image: url('../icons/function.png') !important;
+}
+.icon-group{
+    background-image: url('../icons/user_group.png') !important;
+}
+.icon-favorite{
+    background-image: url('../icons/Favorites_16x16.png') !important;
+}
+.icon-cross-shield{
+    background-image: url('../icons/cross-shield.png') !important;
+}
+.icon-present{
+    background-image: url('../icons/present.png') !important;
+}
+.icon-monitor{
+    background-image: url('../icons/monitor-window-3d.png') !important;
+}
+.icon-globe-share{
+    background-image: url('../icons/globe-share.png') !important;
+}
+.icon-up{
+    background-image: url('../icons/up.png') !important;
+}
+.icon-new-folder{
+    background-image: url('../icons/AddFolder-16.png') !important;
+}
+.icon-tick-check{
+    background-image: url('../icons/Check_16x16.png')!important;
+	background-repeat: no-repeat;
+	background-size: 13px auto;
+}
+.icon-tick-draft{
+    background-image: url('../icons/pencil.png')!important;
+	background-repeat: no-repeat;
+	background-size: 13px auto;
+}
+.icon-reset{
+	background-image:url('../icons/Log_Out_16x16.png')!important;
+}
+.door-open-out{
+	background-image:url('../icons/door-open-out.png');
+}
+.icon-pencil2{
+	background-image:url('../icons/Edit_16x16.png');
+}
+.icon-post{
+	background-image:url('../icons/post.gif');
+}
+.icon-new-data{
+	background-image:url('../icons/New_16x16.png');
+}
+.icon-hammer{
+	background-image:url('../icons/auction-hammer-gavel.png')!important;
+}
+.icon-red-box{
+	background-image:url('../icons/toolbox.png')!important;
+}
+.icon-block-pencil{
+	background-image:url('../icons/blog--pencil.png')!important;
+}
+.icon-app-block{
+	background-image:url('../icons/application-blog.png')!important;
+}
+.icon-b{
+	background-image:url('../icons/b.png')!important;
+}
+.icon-usulan-penerima{
+	background-image:url('../icons/xfn-sweetheart.png')!important;
+}
+.icon-calon-penerima{
+	background-image:url('../icons/xfn-friend.png')!important;
+}
+.icon-penerima{
+	background-image:url('../icons/xfn-friend-met.png')!important;
+}
+.icon-undo{
+	background-image:url('../icons/Undo_16x16.png')!important;
+}
+.icon-uang{
+	background-image:url('../icons/sort-price.png')!important;
+}
+.icon-invoice{
+	background-image:url('../icons/document-invoice.png')!important;
+}
+.icon-picture{
+	background-image:url('../icons/picture--plus.png')!important;
+}

@@ -1,0 +1,363 @@
+select prop.nama as 'Provinsi',kab.nama as 'Kab/Kota',s.sekolah_id,s.nama as 'Nama Sekolah',
+case when s.status_sekolah=1 then 'Negeri' else 'Swasta' end as 'Status', 
+bs.nama_jurusan as 'Bidang Studi',ps.nama_jurusan as 'Program Studi',j.nama_jurusan as 'Nama Jurusan',
+a.nama as 'Akreditasi',(sisjur.kls_10_l+sisjur.kls_10_p) as 'Kelas X',(sisjur.kls_11_l+sisjur.kls_11_p) as 'Kelas XI',
+(sisjur.kls_12_l+sisjur.kls_12_p) as 'Kelas XII',(sisjur.kls_13_l+sisjur.kls_13_p) as 'Kelas XIII',
+(select count(*) from Dapodikmen.dbo.rombongan_belajar where sekolah_id=s.sekolah_id and semester_id=20151 and jurusan_sp_id=jsp.jurusan_sp_id) as 'Rombel',
+(
+	select count(*) from Dapodikmen.dbo.anggota_rombel a INNER JOIN Dapodikmen.dbo.rombongan_belajar b on a.rombongan_belajar_id=b.rombongan_belajar_id
+	where a.Soft_delete=0 and b.sekolah_id=s.sekolah_id and b.semester_id=20151 and a.jenis_pendaftaran_id=9
+) as 'Jumlah Siswa DO',
+(
+	select count(*) from Dapodikmen.dbo.prasarana_longitudinal a inner join 
+	(select prasarana_id from Dapodikmen.dbo.prasarana where jenis_prasarana_id=1 and kepemilikan_sarpras_id=1 and Soft_delete=0 and sekolah_id=s.sekolah_id) as b on a.prasarana_id=b.prasarana_id
+	where semester_id=20151
+	and (rusak_penutup_atap+rusak_rangka_atap+rusak_lisplang_talang+rusak_rangka_plafon+rusak_penutup_listplafon+rusak_cat_plafon
+	+rusak_kolom_ringbalok+rusak_bata_dindingpengisi+rusak_cat_dinding+rusak_kusen+rusak_daun_pintu+rusak_daun_jendela+rusak_struktur_bawah
+	+rusak_penutup_lantai+rusak_pondasi+rusak_sloof+rusak_listrik+rusak_airhujan_rabatan)=0
+) as 'Ruang Kelas Baik',
+(
+	select count(*) from Dapodikmen.dbo.prasarana_longitudinal a inner join 
+	(select prasarana_id from Dapodikmen.dbo.prasarana where jenis_prasarana_id=1 and kepemilikan_sarpras_id=1 and Soft_delete=0 and sekolah_id=s.sekolah_id) as b on a.prasarana_id=b.prasarana_id
+	where semester_id=20151 
+	and (rusak_penutup_atap+rusak_rangka_atap+rusak_lisplang_talang+rusak_rangka_plafon+rusak_penutup_listplafon+rusak_cat_plafon
+	+rusak_kolom_ringbalok+rusak_bata_dindingpengisi+rusak_cat_dinding+rusak_kusen+rusak_daun_pintu+rusak_daun_jendela+rusak_struktur_bawah
+	+rusak_penutup_lantai+rusak_pondasi+rusak_sloof+rusak_listrik+rusak_airhujan_rabatan) BETWEEN 1 and 30
+) as 'Ruang Kelas Rusak Ringan',
+(
+	select count(*) from Dapodikmen.dbo.prasarana_longitudinal a inner join 
+	(select prasarana_id from Dapodikmen.dbo.prasarana where jenis_prasarana_id=1 and kepemilikan_sarpras_id=1 and Soft_delete=0 and sekolah_id=s.sekolah_id) as b on a.prasarana_id=b.prasarana_id
+	where semester_id=20151  
+	and (rusak_penutup_atap+rusak_rangka_atap+rusak_lisplang_talang+rusak_rangka_plafon+rusak_penutup_listplafon+rusak_cat_plafon
+	+rusak_kolom_ringbalok+rusak_bata_dindingpengisi+rusak_cat_dinding+rusak_kusen+rusak_daun_pintu+rusak_daun_jendela+rusak_struktur_bawah
+	+rusak_penutup_lantai+rusak_pondasi+rusak_sloof+rusak_listrik+rusak_airhujan_rabatan) BETWEEN 31 and 45
+) as 'Ruang Kelas Rusak Sedang',
+(
+	select count(*) from Dapodikmen.dbo.prasarana_longitudinal a inner join 
+	(select prasarana_id from Dapodikmen.dbo.prasarana where jenis_prasarana_id=1 and kepemilikan_sarpras_id=1 and Soft_delete=0 and sekolah_id=s.sekolah_id) as b on a.prasarana_id=b.prasarana_id
+	where semester_id=20151 
+	and (rusak_penutup_atap+rusak_rangka_atap+rusak_lisplang_talang+rusak_rangka_plafon+rusak_penutup_listplafon+rusak_cat_plafon
+	+rusak_kolom_ringbalok+rusak_bata_dindingpengisi+rusak_cat_dinding+rusak_kusen+rusak_daun_pintu+rusak_daun_jendela+rusak_struktur_bawah
+	+rusak_penutup_lantai+rusak_pondasi+rusak_sloof+rusak_listrik+rusak_airhujan_rabatan) > 45
+) as 'Ruang Kelas Rusak Berat',
+(
+	select count(*) from Dapodikmen.dbo.prasarana 
+	where jenis_prasarana_id=1 and kepemilikan_sarpras_id=4 and sekolah_id=s.sekolah_id and Soft_delete=0
+) as 'Ruang Kelas Bukan Milik',
+(
+	select count(*) from Dapodikmen.dbo.prasarana 
+	where jenis_prasarana_id=1 and sekolah_id=s.sekolah_id and Soft_delete=0
+) as 'Ruang Kelas Seluruh',
+--Ruang Perpus
+(
+	select count(*) from Dapodikmen.dbo.prasarana_longitudinal a inner join 
+	(select prasarana_id from Dapodikmen.dbo.prasarana where (jenis_prasarana_id=10 or jenis_prasarana_id=11) and kepemilikan_sarpras_id=1 and Soft_delete=0 and sekolah_id=s.sekolah_id) as b on a.prasarana_id=b.prasarana_id
+	where semester_id=20151
+	and (rusak_penutup_atap+rusak_rangka_atap+rusak_lisplang_talang+rusak_rangka_plafon+rusak_penutup_listplafon+rusak_cat_plafon
+	+rusak_kolom_ringbalok+rusak_bata_dindingpengisi+rusak_cat_dinding+rusak_kusen+rusak_daun_pintu+rusak_daun_jendela+rusak_struktur_bawah
+	+rusak_penutup_lantai+rusak_pondasi+rusak_sloof+rusak_listrik+rusak_airhujan_rabatan)=0
+) as 'Ruang Perpus Baik',
+(
+	select count(*) from Dapodikmen.dbo.prasarana_longitudinal a inner join 
+	(select prasarana_id from Dapodikmen.dbo.prasarana where (jenis_prasarana_id=10 or jenis_prasarana_id=11) and kepemilikan_sarpras_id=1 and Soft_delete=0 and sekolah_id=s.sekolah_id) as b on a.prasarana_id=b.prasarana_id
+	where semester_id=20151 
+	and (rusak_penutup_atap+rusak_rangka_atap+rusak_lisplang_talang+rusak_rangka_plafon+rusak_penutup_listplafon+rusak_cat_plafon
+	+rusak_kolom_ringbalok+rusak_bata_dindingpengisi+rusak_cat_dinding+rusak_kusen+rusak_daun_pintu+rusak_daun_jendela+rusak_struktur_bawah
+	+rusak_penutup_lantai+rusak_pondasi+rusak_sloof+rusak_listrik+rusak_airhujan_rabatan) BETWEEN 1 and 30
+) as 'Ruang Perpus Rusak Ringan',
+(
+	select count(*) from Dapodikmen.dbo.prasarana_longitudinal a inner join 
+	(select prasarana_id from Dapodikmen.dbo.prasarana where (jenis_prasarana_id=10 or jenis_prasarana_id=11) and kepemilikan_sarpras_id=1 and Soft_delete=0 and sekolah_id=s.sekolah_id) as b on a.prasarana_id=b.prasarana_id
+	where semester_id=20151  
+	and (rusak_penutup_atap+rusak_rangka_atap+rusak_lisplang_talang+rusak_rangka_plafon+rusak_penutup_listplafon+rusak_cat_plafon
+	+rusak_kolom_ringbalok+rusak_bata_dindingpengisi+rusak_cat_dinding+rusak_kusen+rusak_daun_pintu+rusak_daun_jendela+rusak_struktur_bawah
+	+rusak_penutup_lantai+rusak_pondasi+rusak_sloof+rusak_listrik+rusak_airhujan_rabatan) BETWEEN 31 and 45
+) as 'Ruang Perpus Rusak Sedang',
+(
+	select count(*) from Dapodikmen.dbo.prasarana_longitudinal a inner join 
+	(select prasarana_id from Dapodikmen.dbo.prasarana where (jenis_prasarana_id=10 or jenis_prasarana_id=11) and kepemilikan_sarpras_id=1 and Soft_delete=0 and sekolah_id=s.sekolah_id) as b on a.prasarana_id=b.prasarana_id
+	where semester_id=20151 
+	and (rusak_penutup_atap+rusak_rangka_atap+rusak_lisplang_talang+rusak_rangka_plafon+rusak_penutup_listplafon+rusak_cat_plafon
+	+rusak_kolom_ringbalok+rusak_bata_dindingpengisi+rusak_cat_dinding+rusak_kusen+rusak_daun_pintu+rusak_daun_jendela+rusak_struktur_bawah
+	+rusak_penutup_lantai+rusak_pondasi+rusak_sloof+rusak_listrik+rusak_airhujan_rabatan) > 45
+) as 'Ruang Perpus Rusak Berat',
+(
+	select count(*) from Dapodikmen.dbo.prasarana 
+	where (jenis_prasarana_id=10 or jenis_prasarana_id=11) and sekolah_id=s.sekolah_id and Soft_delete=0
+) as 'Ruang Perpus Seluruh',
+--ruang UKS
+(
+	select count(*) from Dapodikmen.dbo.prasarana_longitudinal a inner join 
+	(select prasarana_id from Dapodikmen.dbo.prasarana where jenis_prasarana_id=14 and kepemilikan_sarpras_id=1 and Soft_delete=0 and sekolah_id=s.sekolah_id) as b on a.prasarana_id=b.prasarana_id
+	where semester_id=20151
+	and (rusak_penutup_atap+rusak_rangka_atap+rusak_lisplang_talang+rusak_rangka_plafon+rusak_penutup_listplafon+rusak_cat_plafon
+	+rusak_kolom_ringbalok+rusak_bata_dindingpengisi+rusak_cat_dinding+rusak_kusen+rusak_daun_pintu+rusak_daun_jendela+rusak_struktur_bawah
+	+rusak_penutup_lantai+rusak_pondasi+rusak_sloof+rusak_listrik+rusak_airhujan_rabatan)=0
+) as 'Ruang UKS Baik',
+(
+	select count(*) from Dapodikmen.dbo.prasarana_longitudinal a inner join 
+	(select prasarana_id from Dapodikmen.dbo.prasarana where jenis_prasarana_id=14 and kepemilikan_sarpras_id=1 and Soft_delete=0 and sekolah_id=s.sekolah_id) as b on a.prasarana_id=b.prasarana_id
+	where semester_id=20151 
+	and (rusak_penutup_atap+rusak_rangka_atap+rusak_lisplang_talang+rusak_rangka_plafon+rusak_penutup_listplafon+rusak_cat_plafon
+	+rusak_kolom_ringbalok+rusak_bata_dindingpengisi+rusak_cat_dinding+rusak_kusen+rusak_daun_pintu+rusak_daun_jendela+rusak_struktur_bawah
+	+rusak_penutup_lantai+rusak_pondasi+rusak_sloof+rusak_listrik+rusak_airhujan_rabatan) BETWEEN 1 and 30
+) as 'Ruang UKS Rusak Ringan',
+(
+	select count(*) from Dapodikmen.dbo.prasarana_longitudinal a inner join 
+	(select prasarana_id from Dapodikmen.dbo.prasarana where jenis_prasarana_id=14 and kepemilikan_sarpras_id=1 and Soft_delete=0 and sekolah_id=s.sekolah_id) as b on a.prasarana_id=b.prasarana_id
+	where semester_id=20151  
+	and (rusak_penutup_atap+rusak_rangka_atap+rusak_lisplang_talang+rusak_rangka_plafon+rusak_penutup_listplafon+rusak_cat_plafon
+	+rusak_kolom_ringbalok+rusak_bata_dindingpengisi+rusak_cat_dinding+rusak_kusen+rusak_daun_pintu+rusak_daun_jendela+rusak_struktur_bawah
+	+rusak_penutup_lantai+rusak_pondasi+rusak_sloof+rusak_listrik+rusak_airhujan_rabatan) BETWEEN 31 and 45
+) as 'Ruang UKS Rusak Sedang',
+(
+	select count(*) from Dapodikmen.dbo.prasarana_longitudinal a inner join 
+	(select prasarana_id from Dapodikmen.dbo.prasarana where jenis_prasarana_id=14 and kepemilikan_sarpras_id=1 and Soft_delete=0 and sekolah_id=s.sekolah_id) as b on a.prasarana_id=b.prasarana_id
+	where semester_id=20151 
+	and (rusak_penutup_atap+rusak_rangka_atap+rusak_lisplang_talang+rusak_rangka_plafon+rusak_penutup_listplafon+rusak_cat_plafon
+	+rusak_kolom_ringbalok+rusak_bata_dindingpengisi+rusak_cat_dinding+rusak_kusen+rusak_daun_pintu+rusak_daun_jendela+rusak_struktur_bawah
+	+rusak_penutup_lantai+rusak_pondasi+rusak_sloof+rusak_listrik+rusak_airhujan_rabatan) > 45
+) as 'Ruang UKS Rusak Berat',
+(
+	select count(*) from Dapodikmen.dbo.prasarana 
+	where jenis_prasarana_id=14 and sekolah_id=s.sekolah_id and Soft_delete=0
+) as 'Ruang UKS Seluruh',
+-- Ruang Komputer
+(
+	select count(*) from Dapodikmen.dbo.prasarana_longitudinal a inner join 
+	(select prasarana_id from Dapodikmen.dbo.prasarana where jenis_prasarana_id=8 and kepemilikan_sarpras_id=1 and Soft_delete=0 and sekolah_id=s.sekolah_id) as b on a.prasarana_id=b.prasarana_id
+	where semester_id=20151
+	and (rusak_penutup_atap+rusak_rangka_atap+rusak_lisplang_talang+rusak_rangka_plafon+rusak_penutup_listplafon+rusak_cat_plafon
+	+rusak_kolom_ringbalok+rusak_bata_dindingpengisi+rusak_cat_dinding+rusak_kusen+rusak_daun_pintu+rusak_daun_jendela+rusak_struktur_bawah
+	+rusak_penutup_lantai+rusak_pondasi+rusak_sloof+rusak_listrik+rusak_airhujan_rabatan)=0
+) as 'Ruang Komputer Baik',
+(
+	select count(*) from Dapodikmen.dbo.prasarana_longitudinal a inner join 
+	(select prasarana_id from Dapodikmen.dbo.prasarana where jenis_prasarana_id=8 and kepemilikan_sarpras_id=1 and Soft_delete=0 and sekolah_id=s.sekolah_id) as b on a.prasarana_id=b.prasarana_id
+	where semester_id=20151 
+	and (rusak_penutup_atap+rusak_rangka_atap+rusak_lisplang_talang+rusak_rangka_plafon+rusak_penutup_listplafon+rusak_cat_plafon
+	+rusak_kolom_ringbalok+rusak_bata_dindingpengisi+rusak_cat_dinding+rusak_kusen+rusak_daun_pintu+rusak_daun_jendela+rusak_struktur_bawah
+	+rusak_penutup_lantai+rusak_pondasi+rusak_sloof+rusak_listrik+rusak_airhujan_rabatan) BETWEEN 1 and 30
+) as 'Ruang Komputer Rusak Ringan',
+(
+	select count(*) from Dapodikmen.dbo.prasarana_longitudinal a inner join 
+	(select prasarana_id from Dapodikmen.dbo.prasarana where jenis_prasarana_id=8 and kepemilikan_sarpras_id=1 and Soft_delete=0 and sekolah_id=s.sekolah_id) as b on a.prasarana_id=b.prasarana_id
+	where semester_id=20151  
+	and (rusak_penutup_atap+rusak_rangka_atap+rusak_lisplang_talang+rusak_rangka_plafon+rusak_penutup_listplafon+rusak_cat_plafon
+	+rusak_kolom_ringbalok+rusak_bata_dindingpengisi+rusak_cat_dinding+rusak_kusen+rusak_daun_pintu+rusak_daun_jendela+rusak_struktur_bawah
+	+rusak_penutup_lantai+rusak_pondasi+rusak_sloof+rusak_listrik+rusak_airhujan_rabatan) BETWEEN 31 and 45
+) as 'Ruang Komputer Rusak Sedang',
+(
+	select count(*) from Dapodikmen.dbo.prasarana_longitudinal a inner join 
+	(select prasarana_id from Dapodikmen.dbo.prasarana where jenis_prasarana_id=8 and kepemilikan_sarpras_id=1 and Soft_delete=0 and sekolah_id=s.sekolah_id) as b on a.prasarana_id=b.prasarana_id
+	where semester_id=20151 
+	and (rusak_penutup_atap+rusak_rangka_atap+rusak_lisplang_talang+rusak_rangka_plafon+rusak_penutup_listplafon+rusak_cat_plafon
+	+rusak_kolom_ringbalok+rusak_bata_dindingpengisi+rusak_cat_dinding+rusak_kusen+rusak_daun_pintu+rusak_daun_jendela+rusak_struktur_bawah
+	+rusak_penutup_lantai+rusak_pondasi+rusak_sloof+rusak_listrik+rusak_airhujan_rabatan) > 45
+) as 'Ruang Komputer Rusak Berat',
+(
+	select count(*) from Dapodikmen.dbo.prasarana 
+	where jenis_prasarana_id=8 and sekolah_id=s.sekolah_id and Soft_delete=0
+) as 'Ruang Komputer Seluruh',
+--Lab Fisika
+(
+	select count(*) from Dapodikmen.dbo.prasarana_longitudinal a inner join 
+	(select prasarana_id from Dapodikmen.dbo.prasarana where jenis_prasarana_id=4 and kepemilikan_sarpras_id=1 and Soft_delete=0 and sekolah_id=s.sekolah_id) as b on a.prasarana_id=b.prasarana_id
+	where semester_id=20151
+	and (rusak_penutup_atap+rusak_rangka_atap+rusak_lisplang_talang+rusak_rangka_plafon+rusak_penutup_listplafon+rusak_cat_plafon
+	+rusak_kolom_ringbalok+rusak_bata_dindingpengisi+rusak_cat_dinding+rusak_kusen+rusak_daun_pintu+rusak_daun_jendela+rusak_struktur_bawah
+	+rusak_penutup_lantai+rusak_pondasi+rusak_sloof+rusak_listrik+rusak_airhujan_rabatan)=0
+) as 'Ruang Lab Fisika Baik',
+(
+	select count(*) from Dapodikmen.dbo.prasarana_longitudinal a inner join 
+	(select prasarana_id from Dapodikmen.dbo.prasarana where jenis_prasarana_id=4 and kepemilikan_sarpras_id=1 and Soft_delete=0 and sekolah_id=s.sekolah_id) as b on a.prasarana_id=b.prasarana_id
+	where semester_id=20151 
+	and (rusak_penutup_atap+rusak_rangka_atap+rusak_lisplang_talang+rusak_rangka_plafon+rusak_penutup_listplafon+rusak_cat_plafon
+	+rusak_kolom_ringbalok+rusak_bata_dindingpengisi+rusak_cat_dinding+rusak_kusen+rusak_daun_pintu+rusak_daun_jendela+rusak_struktur_bawah
+	+rusak_penutup_lantai+rusak_pondasi+rusak_sloof+rusak_listrik+rusak_airhujan_rabatan) BETWEEN 1 and 30
+) as 'Ruang Lab Fisika Rusak Ringan',
+(
+	select count(*) from Dapodikmen.dbo.prasarana_longitudinal a inner join 
+	(select prasarana_id from Dapodikmen.dbo.prasarana where jenis_prasarana_id=4 and kepemilikan_sarpras_id=1 and Soft_delete=0 and sekolah_id=s.sekolah_id) as b on a.prasarana_id=b.prasarana_id
+	where semester_id=20151  
+	and (rusak_penutup_atap+rusak_rangka_atap+rusak_lisplang_talang+rusak_rangka_plafon+rusak_penutup_listplafon+rusak_cat_plafon
+	+rusak_kolom_ringbalok+rusak_bata_dindingpengisi+rusak_cat_dinding+rusak_kusen+rusak_daun_pintu+rusak_daun_jendela+rusak_struktur_bawah
+	+rusak_penutup_lantai+rusak_pondasi+rusak_sloof+rusak_listrik+rusak_airhujan_rabatan) BETWEEN 31 and 45
+) as 'Ruang Lab Fisika Rusak Sedang',
+(
+	select count(*) from Dapodikmen.dbo.prasarana_longitudinal a inner join 
+	(select prasarana_id from Dapodikmen.dbo.prasarana where jenis_prasarana_id=4 and kepemilikan_sarpras_id=1 and Soft_delete=0 and sekolah_id=s.sekolah_id) as b on a.prasarana_id=b.prasarana_id
+	where semester_id=20151 
+	and (rusak_penutup_atap+rusak_rangka_atap+rusak_lisplang_talang+rusak_rangka_plafon+rusak_penutup_listplafon+rusak_cat_plafon
+	+rusak_kolom_ringbalok+rusak_bata_dindingpengisi+rusak_cat_dinding+rusak_kusen+rusak_daun_pintu+rusak_daun_jendela+rusak_struktur_bawah
+	+rusak_penutup_lantai+rusak_pondasi+rusak_sloof+rusak_listrik+rusak_airhujan_rabatan) > 45
+) as 'Ruang Lab Fisika Rusak Berat',
+(
+	select count(*) from Dapodikmen.dbo.prasarana 
+	where jenis_prasarana_id=4 and sekolah_id=s.sekolah_id and Soft_delete=0
+) as 'Ruang Lab Fisika Seluruh',
+-- Lab Kimia
+(
+	select count(*) from Dapodikmen.dbo.prasarana_longitudinal a inner join 
+	(select prasarana_id from Dapodikmen.dbo.prasarana where jenis_prasarana_id=3 and kepemilikan_sarpras_id=1 and Soft_delete=0 and sekolah_id=s.sekolah_id) as b on a.prasarana_id=b.prasarana_id
+	where semester_id=20151
+	and (rusak_penutup_atap+rusak_rangka_atap+rusak_lisplang_talang+rusak_rangka_plafon+rusak_penutup_listplafon+rusak_cat_plafon
+	+rusak_kolom_ringbalok+rusak_bata_dindingpengisi+rusak_cat_dinding+rusak_kusen+rusak_daun_pintu+rusak_daun_jendela+rusak_struktur_bawah
+	+rusak_penutup_lantai+rusak_pondasi+rusak_sloof+rusak_listrik+rusak_airhujan_rabatan)=0
+) as 'Ruang Lab Kimia Baik',
+(
+	select count(*) from Dapodikmen.dbo.prasarana_longitudinal a inner join 
+	(select prasarana_id from Dapodikmen.dbo.prasarana where jenis_prasarana_id=3 and kepemilikan_sarpras_id=1 and Soft_delete=0 and sekolah_id=s.sekolah_id) as b on a.prasarana_id=b.prasarana_id
+	where semester_id=20151 
+	and (rusak_penutup_atap+rusak_rangka_atap+rusak_lisplang_talang+rusak_rangka_plafon+rusak_penutup_listplafon+rusak_cat_plafon
+	+rusak_kolom_ringbalok+rusak_bata_dindingpengisi+rusak_cat_dinding+rusak_kusen+rusak_daun_pintu+rusak_daun_jendela+rusak_struktur_bawah
+	+rusak_penutup_lantai+rusak_pondasi+rusak_sloof+rusak_listrik+rusak_airhujan_rabatan) BETWEEN 1 and 30
+) as 'Ruang Lab Kimia Rusak Ringan',
+(
+	select count(*) from Dapodikmen.dbo.prasarana_longitudinal a inner join 
+	(select prasarana_id from Dapodikmen.dbo.prasarana where jenis_prasarana_id=3 and kepemilikan_sarpras_id=1 and Soft_delete=0 and sekolah_id=s.sekolah_id) as b on a.prasarana_id=b.prasarana_id
+	where semester_id=20151  
+	and (rusak_penutup_atap+rusak_rangka_atap+rusak_lisplang_talang+rusak_rangka_plafon+rusak_penutup_listplafon+rusak_cat_plafon
+	+rusak_kolom_ringbalok+rusak_bata_dindingpengisi+rusak_cat_dinding+rusak_kusen+rusak_daun_pintu+rusak_daun_jendela+rusak_struktur_bawah
+	+rusak_penutup_lantai+rusak_pondasi+rusak_sloof+rusak_listrik+rusak_airhujan_rabatan) BETWEEN 31 and 45
+) as 'Ruang Lab Kimia Rusak Sedang',
+(
+	select count(*) from Dapodikmen.dbo.prasarana_longitudinal a inner join 
+	(select prasarana_id from Dapodikmen.dbo.prasarana where jenis_prasarana_id=3 and kepemilikan_sarpras_id=1 and Soft_delete=0 and sekolah_id=s.sekolah_id) as b on a.prasarana_id=b.prasarana_id
+	where semester_id=20151 
+	and (rusak_penutup_atap+rusak_rangka_atap+rusak_lisplang_talang+rusak_rangka_plafon+rusak_penutup_listplafon+rusak_cat_plafon
+	+rusak_kolom_ringbalok+rusak_bata_dindingpengisi+rusak_cat_dinding+rusak_kusen+rusak_daun_pintu+rusak_daun_jendela+rusak_struktur_bawah
+	+rusak_penutup_lantai+rusak_pondasi+rusak_sloof+rusak_listrik+rusak_airhujan_rabatan) > 45
+) as 'Ruang Lab Kimia Rusak Berat',
+(
+	select count(*) from Dapodikmen.dbo.prasarana 
+	where jenis_prasarana_id=3 and sekolah_id=s.sekolah_id and Soft_delete=0
+) as 'Ruang Lab Kimia Seluruh',
+-- Lab Biologi
+(
+	select count(*) from Dapodikmen.dbo.prasarana_longitudinal a inner join 
+	(select prasarana_id from Dapodikmen.dbo.prasarana where jenis_prasarana_id=5 and kepemilikan_sarpras_id=1 and Soft_delete=0 and sekolah_id=s.sekolah_id) as b on a.prasarana_id=b.prasarana_id
+	where semester_id=20151
+	and (rusak_penutup_atap+rusak_rangka_atap+rusak_lisplang_talang+rusak_rangka_plafon+rusak_penutup_listplafon+rusak_cat_plafon
+	+rusak_kolom_ringbalok+rusak_bata_dindingpengisi+rusak_cat_dinding+rusak_kusen+rusak_daun_pintu+rusak_daun_jendela+rusak_struktur_bawah
+	+rusak_penutup_lantai+rusak_pondasi+rusak_sloof+rusak_listrik+rusak_airhujan_rabatan)=0
+) as 'Ruang Lab Biologi Baik',
+(
+	select count(*) from Dapodikmen.dbo.prasarana_longitudinal a inner join 
+	(select prasarana_id from Dapodikmen.dbo.prasarana where jenis_prasarana_id=5 and kepemilikan_sarpras_id=1 and Soft_delete=0 and sekolah_id=s.sekolah_id) as b on a.prasarana_id=b.prasarana_id
+	where semester_id=20151 
+	and (rusak_penutup_atap+rusak_rangka_atap+rusak_lisplang_talang+rusak_rangka_plafon+rusak_penutup_listplafon+rusak_cat_plafon
+	+rusak_kolom_ringbalok+rusak_bata_dindingpengisi+rusak_cat_dinding+rusak_kusen+rusak_daun_pintu+rusak_daun_jendela+rusak_struktur_bawah
+	+rusak_penutup_lantai+rusak_pondasi+rusak_sloof+rusak_listrik+rusak_airhujan_rabatan) BETWEEN 1 and 30
+) as 'Ruang Lab Biologi Rusak Ringan',
+(
+	select count(*) from Dapodikmen.dbo.prasarana_longitudinal a inner join 
+	(select prasarana_id from Dapodikmen.dbo.prasarana where jenis_prasarana_id=5 and kepemilikan_sarpras_id=1 and Soft_delete=0 and sekolah_id=s.sekolah_id) as b on a.prasarana_id=b.prasarana_id
+	where semester_id=20151  
+	and (rusak_penutup_atap+rusak_rangka_atap+rusak_lisplang_talang+rusak_rangka_plafon+rusak_penutup_listplafon+rusak_cat_plafon
+	+rusak_kolom_ringbalok+rusak_bata_dindingpengisi+rusak_cat_dinding+rusak_kusen+rusak_daun_pintu+rusak_daun_jendela+rusak_struktur_bawah
+	+rusak_penutup_lantai+rusak_pondasi+rusak_sloof+rusak_listrik+rusak_airhujan_rabatan) BETWEEN 31 and 45
+) as 'Ruang Lab Biologi Rusak Sedang',
+(
+	select count(*) from Dapodikmen.dbo.prasarana_longitudinal a inner join 
+	(select prasarana_id from Dapodikmen.dbo.prasarana where jenis_prasarana_id=5 and kepemilikan_sarpras_id=1 and Soft_delete=0 and sekolah_id=s.sekolah_id) as b on a.prasarana_id=b.prasarana_id
+	where semester_id=20151 
+	and (rusak_penutup_atap+rusak_rangka_atap+rusak_lisplang_talang+rusak_rangka_plafon+rusak_penutup_listplafon+rusak_cat_plafon
+	+rusak_kolom_ringbalok+rusak_bata_dindingpengisi+rusak_cat_dinding+rusak_kusen+rusak_daun_pintu+rusak_daun_jendela+rusak_struktur_bawah
+	+rusak_penutup_lantai+rusak_pondasi+rusak_sloof+rusak_listrik+rusak_airhujan_rabatan) > 45
+) as 'Ruang Lab Biologi Rusak Berat',
+(
+	select count(*) from Dapodikmen.dbo.prasarana 
+	where jenis_prasarana_id=5 and sekolah_id=s.sekolah_id and Soft_delete=0
+) as 'Ruang Lab Biologi Seluruh',
+-- RPS
+(
+	select count(*) from Dapodikmen.dbo.prasarana_longitudinal a inner join 
+	(select prasarana_id from Dapodikmen.dbo.prasarana where jenis_prasarana_id in (15,16,17,19,39,51,52) and kepemilikan_sarpras_id=1 and Soft_delete=0 and sekolah_id=s.sekolah_id) as b on a.prasarana_id=b.prasarana_id
+	where semester_id=20151
+	and (rusak_penutup_atap+rusak_rangka_atap+rusak_lisplang_talang+rusak_rangka_plafon+rusak_penutup_listplafon+rusak_cat_plafon
+	+rusak_kolom_ringbalok+rusak_bata_dindingpengisi+rusak_cat_dinding+rusak_kusen+rusak_daun_pintu+rusak_daun_jendela+rusak_struktur_bawah
+	+rusak_penutup_lantai+rusak_pondasi+rusak_sloof+rusak_listrik+rusak_airhujan_rabatan)=0
+) as 'Ruang RPS Baik',
+(
+	select count(*) from Dapodikmen.dbo.prasarana_longitudinal a inner join 
+	(select prasarana_id from Dapodikmen.dbo.prasarana where jenis_prasarana_id in (15,16,17,19,39,51,52) and kepemilikan_sarpras_id=1 and Soft_delete=0 and sekolah_id=s.sekolah_id) as b on a.prasarana_id=b.prasarana_id
+	where semester_id=20151 
+	and (rusak_penutup_atap+rusak_rangka_atap+rusak_lisplang_talang+rusak_rangka_plafon+rusak_penutup_listplafon+rusak_cat_plafon
+	+rusak_kolom_ringbalok+rusak_bata_dindingpengisi+rusak_cat_dinding+rusak_kusen+rusak_daun_pintu+rusak_daun_jendela+rusak_struktur_bawah
+	+rusak_penutup_lantai+rusak_pondasi+rusak_sloof+rusak_listrik+rusak_airhujan_rabatan) BETWEEN 1 and 30
+) as 'Ruang RPS Rusak Ringan',
+(
+	select count(*) from Dapodikmen.dbo.prasarana_longitudinal a inner join 
+	(select prasarana_id from Dapodikmen.dbo.prasarana where jenis_prasarana_id in (15,16,17,19,39,51,52) and kepemilikan_sarpras_id=1 and Soft_delete=0 and sekolah_id=s.sekolah_id) as b on a.prasarana_id=b.prasarana_id
+	where semester_id=20151  
+	and (rusak_penutup_atap+rusak_rangka_atap+rusak_lisplang_talang+rusak_rangka_plafon+rusak_penutup_listplafon+rusak_cat_plafon
+	+rusak_kolom_ringbalok+rusak_bata_dindingpengisi+rusak_cat_dinding+rusak_kusen+rusak_daun_pintu+rusak_daun_jendela+rusak_struktur_bawah
+	+rusak_penutup_lantai+rusak_pondasi+rusak_sloof+rusak_listrik+rusak_airhujan_rabatan) BETWEEN 31 and 45
+) as 'Ruang RPS Rusak Sedang',
+(
+	select count(*) from Dapodikmen.dbo.prasarana_longitudinal a inner join 
+	(select prasarana_id from Dapodikmen.dbo.prasarana where jenis_prasarana_id in (15,16,17,19,39,51,52) and kepemilikan_sarpras_id=1 and Soft_delete=0 and sekolah_id=s.sekolah_id) as b on a.prasarana_id=b.prasarana_id
+	where semester_id=20151 
+	and (rusak_penutup_atap+rusak_rangka_atap+rusak_lisplang_talang+rusak_rangka_plafon+rusak_penutup_listplafon+rusak_cat_plafon
+	+rusak_kolom_ringbalok+rusak_bata_dindingpengisi+rusak_cat_dinding+rusak_kusen+rusak_daun_pintu+rusak_daun_jendela+rusak_struktur_bawah
+	+rusak_penutup_lantai+rusak_pondasi+rusak_sloof+rusak_listrik+rusak_airhujan_rabatan) > 45
+) as 'Ruang RPS Rusak Berat',
+(
+	select count(*) from Dapodikmen.dbo.prasarana 
+	where jenis_prasarana_id in (15,16,17,19,39,51,52) and sekolah_id=s.sekolah_id and Soft_delete=0
+) as 'Ruang RPS Seluruh',
+-- Ruang Penunjang Lain
+(
+	select count(*) from Dapodikmen.dbo.prasarana_longitudinal a inner join 
+	(select prasarana_id from Dapodikmen.dbo.prasarana where jenis_prasarana_id in (12,14,20,21,22,23,24,25,26,27,28,29,31,35,36,37) and (jenis_prasarana_id BETWEEN 40 and 50) and kepemilikan_sarpras_id=1 and Soft_delete=0 and sekolah_id=s.sekolah_id) as b on a.prasarana_id=b.prasarana_id
+	where semester_id=20151
+	and (rusak_penutup_atap+rusak_rangka_atap+rusak_lisplang_talang+rusak_rangka_plafon+rusak_penutup_listplafon+rusak_cat_plafon
+	+rusak_kolom_ringbalok+rusak_bata_dindingpengisi+rusak_cat_dinding+rusak_kusen+rusak_daun_pintu+rusak_daun_jendela+rusak_struktur_bawah
+	+rusak_penutup_lantai+rusak_pondasi+rusak_sloof+rusak_listrik+rusak_airhujan_rabatan)=0
+) as 'Ruang RPL Baik',
+(
+	select count(*) from Dapodikmen.dbo.prasarana_longitudinal a inner join 
+	(select prasarana_id from Dapodikmen.dbo.prasarana where jenis_prasarana_id in (12,14,20,21,22,23,24,25,26,27,28,29,31,35,36,37) and (jenis_prasarana_id BETWEEN 40 and 50) and kepemilikan_sarpras_id=1 and Soft_delete=0 and sekolah_id=s.sekolah_id) as b on a.prasarana_id=b.prasarana_id
+	where semester_id=20151 
+	and (rusak_penutup_atap+rusak_rangka_atap+rusak_lisplang_talang+rusak_rangka_plafon+rusak_penutup_listplafon+rusak_cat_plafon
+	+rusak_kolom_ringbalok+rusak_bata_dindingpengisi+rusak_cat_dinding+rusak_kusen+rusak_daun_pintu+rusak_daun_jendela+rusak_struktur_bawah
+	+rusak_penutup_lantai+rusak_pondasi+rusak_sloof+rusak_listrik+rusak_airhujan_rabatan) BETWEEN 1 and 30
+) as 'Ruang RPL Rusak Ringan',
+(
+	select count(*) from Dapodikmen.dbo.prasarana_longitudinal a inner join 
+	(select prasarana_id from Dapodikmen.dbo.prasarana where jenis_prasarana_id in (12,14,20,21,22,23,24,25,26,27,28,29,31,35,36,37) and (jenis_prasarana_id BETWEEN 40 and 50) and kepemilikan_sarpras_id=1 and Soft_delete=0 and sekolah_id=s.sekolah_id) as b on a.prasarana_id=b.prasarana_id
+	where semester_id=20151  
+	and (rusak_penutup_atap+rusak_rangka_atap+rusak_lisplang_talang+rusak_rangka_plafon+rusak_penutup_listplafon+rusak_cat_plafon
+	+rusak_kolom_ringbalok+rusak_bata_dindingpengisi+rusak_cat_dinding+rusak_kusen+rusak_daun_pintu+rusak_daun_jendela+rusak_struktur_bawah
+	+rusak_penutup_lantai+rusak_pondasi+rusak_sloof+rusak_listrik+rusak_airhujan_rabatan) BETWEEN 31 and 45
+) as 'Ruang RPL Rusak Sedang',
+(
+	select count(*) from Dapodikmen.dbo.prasarana_longitudinal a inner join 
+	(select prasarana_id from Dapodikmen.dbo.prasarana where jenis_prasarana_id in (12,14,20,21,22,23,24,25,26,27,28,29,31,35,36,37) and (jenis_prasarana_id BETWEEN 40 and 50) and kepemilikan_sarpras_id=1 and Soft_delete=0 and sekolah_id=s.sekolah_id) as b on a.prasarana_id=b.prasarana_id
+	where semester_id=20151 
+	and (rusak_penutup_atap+rusak_rangka_atap+rusak_lisplang_talang+rusak_rangka_plafon+rusak_penutup_listplafon+rusak_cat_plafon
+	+rusak_kolom_ringbalok+rusak_bata_dindingpengisi+rusak_cat_dinding+rusak_kusen+rusak_daun_pintu+rusak_daun_jendela+rusak_struktur_bawah
+	+rusak_penutup_lantai+rusak_pondasi+rusak_sloof+rusak_listrik+rusak_airhujan_rabatan) > 45
+) as 'Ruang RPL Rusak Berat',
+(
+	select count(*) from Dapodikmen.dbo.prasarana 
+	where jenis_prasarana_id in (12,14,20,21,22,23,24,25,26,27,28,29,31,35,36,37) and (jenis_prasarana_id BETWEEN 40 and 50) and sekolah_id=s.sekolah_id and Soft_delete=0
+) as 'Ruang RPL Seluruh',
+
+s.alamat_jalan as 'Alamat',s.nomor_telepon
+from Dapodikmen.dbo.sekolah s inner JOIN
+(select * from Dapodikmen.ref.mst_wilayah where id_level_wilayah=2) as kab on left(s.kode_wilayah,4)+'00'=kab.kode_wilayah
+inner join Dapodikmen.ref.mst_wilayah prop on prop.kode_wilayah=kab.mst_kode_wilayah
+inner join Dapodikmen_Agregat.dbo.sekolah_jurusan sj on sj.sekolah_id=s.sekolah_id
+inner join Dapodikmen.ref.jurusan j on j.jurusan_id=sj.jurusan_id
+inner join Dapodikmen.ref.jurusan ps on ps.jurusan_id=j.jurusan_induk
+inner join Dapodikmen.ref.jurusan bs on bs.jurusan_id=ps.jurusan_induk
+inner join Dapodikmen.dbo.jurusan_sp jsp on jsp.sekolah_id=sj.sekolah_id and jsp.jurusan_id=sj.jurusan_id
+inner join Dapodikmen.dbo.akreditasi_prodi ap on ap.jurusan_sp_id=jsp.jurusan_sp_id
+inner join Dapodikmen.ref.akreditasi a on a.akreditasi_id=ap.akreditasi_id
+inner join Dapodikmen_Agregat.dbo.siswa_jurusan sisjur on sisjur.sekolah_id=sj.sekolah_id and sisjur.jurusan_id=sj.jurusan_id
+
+
+where sisjur.tahun_ajaran_id=2015 and jsp.Soft_delete=0
+order by prop.nama,kab.nama,s.nama

@@ -1,0 +1,78 @@
+@charset "UTF-8";
+
+/* SpryAccordion.css - version 0.4 - Spry Pre-Release 1.6.1 */
+
+.Accordion {
+    border-left:solid 1px #bebebe;
+    border-right: solid 1px #bebebe;
+    border-bottom: solid 1px #bebebe;
+    border-top: solid 1px #bebebe;
+    /*    border-top:solid 3px #d50000;*/
+    overflow: hidden;
+}
+
+/*.AccordionPanel {margin: 0px; padding: 0px;}
+
+.AccordionPanel a {color: #333333;}
+*/
+.AccordionPanelTab {
+    /*    color:#333333;*/
+    color:#FF6633;
+    border-top: solid 1px #bebebe;
+    margin: 0px;
+    padding: 6px;
+    cursor: pointer;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    font-weight:bold;
+    padding-left: 0px;
+    /*    background:#f4f4f4 url(../images/blueicon_expand.png) 4px center no-repeat!important;
+    padding-left: 24px;*/
+    background-color: #c5c5c5!important;
+    background-image: -webkit-gradient(linear,50% 0,50% 100%,color-stop(0%,#f9f9f9),color-stop(100%,#e3e4e6))!important;
+    background-image: -webkit-linear-gradient(top,#f9f9f9,#e3e4e6)!important;
+    background-image: -moz-linear-gradient(top,#f9f9f9,#e3e4e6)!important;
+    background-image: -o-linear-gradient(top,#f9f9f9,#e3e4e6)!important;
+    background-image: -ms-linear-gradient(top,#f9f9f9,#e3e4e6)!important;
+    background-image: linear-gradient(top,#f9f9f9,#e3e4e6)!important;
+}
+.AccordionPanelTab a {color: #d50000; text-decoration:none;}
+.AccordionPanelContent {overflow:hidden;padding:2px 8px 8px 24px;color:#333333; font-weight:normal;}
+.AccordionPanelContent ul li { background:url(../images/bullet.gif) no-repeat; list-style-type:none; margin:0px; padding-left:15px;font-weight:normal;}
+.AccordionPanelContent a { color:#333333;font-weight:normal;}
+.AccordionPanelOpen .AccordionPanelTab {
+    color: #0E4DAD;
+    border-color: #99bce8;
+    border-width: 1px;
+    border-style: solid;
+    /*    background-color: #e3e4e6;*/
+    border-bottom: 1px solid #99BCE8;
+    padding-left: 0px;
+    /*    background:url(../images/blueicon_collapse.png) 4px center no-repeat!important;*/
+
+    border-left: 3px;
+    background-image: none;
+    background-color: #cbddf3!important;
+    background-image: -webkit-gradient(linear,50% 0,50% 100%,color-stop(0%,#dae7f6),color-stop(45%,#cddef3),color-stop(46%,#abc7ec),color-stop(50%,#abc7ec),color-stop(51%,#b8cfee),color-stop(100%,#cbddf3))!important;
+    background-image: -webkit-linear-gradient(top,#dae7f6,#cddef3 45%,#abc7ec 46%,#abc7ec 50%,#b8cfee 51%,#cbddf3)!important;
+    background-image: -moz-linear-gradient(top,#dae7f6,#cddef3 45%,#abc7ec 46%,#abc7ec 50%,#b8cfee 51%,#cbddf3)!important;
+    background-image: -o-linear-gradient(top,#dae7f6,#cddef3 45%,#abc7ec 46%,#abc7ec 50%,#b8cfee 51%,#cbddf3)!important;
+    background-image: -ms-linear-gradient(top,#dae7f6,#cddef3 45%,#abc7ec 46%,#abc7ec 50%,#b8cfee 51%,#cbddf3)!important;
+    background-image: linear-gradient(top,#dae7f6,#cddef3 45%,#abc7ec 46%,#abc7ec 50%,#b8cfee 51%,#cbddf3)!important;
+}
+.AccordionPanelTabHover {color: #d50000;  background-color:#e3e4e6/*;background:url(../images/acorddion-down2.gif) no-repeat;*/}
+.AccordionPanelOpen .AccordionPanelTabHover {color: #d50000;}
+.AccordionFocused .AccordionPanelTab {background-color: #ffffff;}
+.AccordionFocused .AccordionPanelOpen .AccordionPanelTab {	background-color: #ffffff;}
+.AccordionPanelOpen{
+    background-color: #DFE9F6;
+}
+.innerAccordionPanelTab{
+    padding-left: 24px;
+    background:url(../images/blueicon_expand.png) 4px center no-repeat!important;
+}
+.AccordionPanelOpen .AccordionPanelTab .innerAccordionPanelTab{
+    //border-right: 4px dotted #00CC00;
+    background:url(../images/blueicon_collapse.png) 4px center no-repeat!important;
+}
+

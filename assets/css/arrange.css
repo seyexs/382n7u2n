@@ -1,0 +1,60 @@
+
+.x-tree-panel .x-grid-row .x-grid-cell {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.x-tree-panel .cls-output .x-grid-cell-inner{
+    height: 30px;
+}
+
+.x-tree-panel .cls-akun .x-grid-cell-inner{
+    height: 30px;
+}
+.tree-program .x-grid-row .x-grid-cell {
+    border-bottom: 1px solid;
+    border-color: #EEEEEE;
+}
+
+.cls-activity .x-grid-cell{
+    text-decoration: underline;
+}
+
+.output-tab{
+    width: 100%;
+    border: 1px solid #E6E6E6;
+    border-right: 0px solid #BBB;
+}
+
+.infowindow-editwindow-base{
+    background: url("../images/inner-shadow.png") repeat-x scroll 0 0 #FFFFFF;
+    border-top: 1px solid #CECECE;
+    min-height: 50px;
+    padding: 15px 25px;
+}
+
+table.display {
+    border-collapse: collapse;
+    border-top: 1px solid #C9C9C9;
+    box-shadow: 0 0 4px #EFEFEF;
+    margin: 10px auto !important;
+    padding: 0;
+}
+
+table.display .label, table.display .code,  table.display .content {
+    border-bottom: 1px dashed #E6E6E6;
+    border-top: 0 solid #D6D6D6;
+    border-right: 1px solid #E6E6E6;
+    line-height: 18px;
+    padding: 2px 5px;
+}
+table.display .label{
+    background-color: #F2F2F2;
+    background-image: url("../images/inner-shadow.png");
+    background-position: left top;
+    background-repeat: repeat-x;
+    text-shadow: 1px 1px 1px #FFFFFF;
+}
+table.display .label, table.display .code{
+    width: 120px;
+}

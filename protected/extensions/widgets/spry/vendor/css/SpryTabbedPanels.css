@@ -1,0 +1,100 @@
+
+/* CUSTOM */
+
+.pc-TabbedPanels { margin:0 0 10px 0; padding:0px; float:left; clear:none; width:100%; }
+/* width:100% - IE Hack to force proper layout when preceded by a paragraph. (hasLayout Bug)*/
+.pc-TabbedPanelsTabGroup { margin:0px; padding:0px; }
+.pc-TabbedPanelsTab {
+	position:relative;top:1px; float:left;font-size:13px; font-weight:bold;text-align:left; color:#ffffff; 
+	line-height:100%;width:98px; padding:10px 2px;margin:0 5px 0 0;cursor: pointer;outline:none;
+	background: url(../images/bkgrd-tabs.gif) repeat-x #f4f4f4;	list-style: none;border:solid 1px #bebebe;
+	border-bottom:none;-moz-user-select: none;-khtml-user-select: none;}
+	
+.pc-TabbedPanelsContentGroup { clear:both; }
+.pc-TabbedPanelsContent { padding:10px 5px 10px 10px; background:#FFFFFF; border:solid 3px #d50000; overflow:hidden; width:617px; }
+
+/* Tab - baby & Children Needs */
+.pc-TabbedPanelsTabBaby {
+	position:relative;top:3px; float:left;font-size:13px; font-weight:bold;text-align:left; color:#ffffff; 
+	line-height:100%;width:98px;padding:10px 9px;margin:0 5px 0 0;cursor: pointer;outline:none;
+	background: url(../images/bkgrd-pc-baby.gif) no-repeat; padding-left:48px; list-style: none; 
+	border:3px solid #d50000;border-bottom:none;-moz-user-select: none;-khtml-user-select: none;}
+.pc-TabbedPanelsTabBabyHover { color:#ffffff; }
+.pc-TabbedPanelsTabBaby.pc-TabbedPanelsTabSelected { 
+	background: url(../images/bkgrd-pc-2baby.gif) no-repeat; width:98px; padding-left:48px; 
+	border:3px solid #d50000; border-bottom:none; color:#333333; }
+.pc-TabbedPanelsTabBaby a { color:#999999; text-decoration:none; }
+
+/* Tab - beauty & welness */
+.pc-TabbedPanelsTabBeauty {
+	position:relative;top:3px; float:left;font-size:13px; font-weight:bold;text-align:left; color:#ffffff; 
+	line-height:100%;width:98px;padding:10px 2px;margin:0 5px 0 0;cursor: pointer;outline:none;
+	background: url(../images/bkgrd-pc-beauty.gif) no-repeat; padding-left:48px; list-style: none;
+	border:3px solid #d50000;border-bottom:none;-moz-user-select: none;-khtml-user-select: none;}	
+.pc-TabbedPanelsTabBeauty.pc-TabbedPanelsTabSelected { 
+	background: url(../images/bkgrd-pc-2beauty.gif) no-repeat; width:98px; padding-left:48px; 
+	border:3px solid #d50000; border-bottom:none; color:#333333; }
+	
+/* Tab - business opportunity */
+.pc-TabbedPanelsTabFashion {
+	position:relative;top:3px; float:left;font-size:13px; font-weight:bold;text-align:left; color:#ffffff; 
+	line-height:100%;width:98px; height:26px; padding:10px 2px;margin:0 5px 0 0;	cursor: pointer;outline:none;
+	background: url(../images/bkgrd-pc-fashion.gif) no-repeat; padding-left:48px; list-style: none;
+	border:3px solid #d50000;border-bottom:none;-moz-user-select: none;-khtml-user-select: none;}	
+.pc-TabbedPanelsTabFashion.pc-TabbedPanelsTabSelected { 
+	background:url(../images/bkgrd-pc-2fashion.gif) no-repeat; width:98px; padding-left:48px;
+	border:3px solid #d50000;border-bottom:none; color:#333333; }
+
+/* Tab - computer  */
+.pc-TabbedPanelsTabComputer {
+	position:relative;top:3px; float:left;font-size:13px; font-weight:bold;text-align:left; color:#ffffff; 
+	line-height:100%;width:98px;padding:10px 2px;margin:0;cursor: pointer;outline:none;
+	background: url(../images/bkgrd-pc-comp.gif) no-repeat; padding-left:48px; list-style: none; 
+	border:3px solid #d50000;border-bottom:none;-moz-user-select: none;-khtml-user-select: none;}
+.pc-TabbedPanelsTabComputer.pc-TabbedPanelsTabSelected { 
+	background:url(../images/bkgrd-pc-2comp.gif) no-repeat; width:98px; padding-left:48px;
+	border:3px solid #d50000;border-bottom:none; color:#333333; }	
+
+/**************/
+/* AD DETAILS */
+/**************/
+.ad-TabbedPanels { margin:0px; padding:0px; float:left; clear:none; width:100%; }
+/* width:100% - IE Hack to force proper layout when preceded by a paragraph. (hasLayout Bug)*/
+
+.ad-TabbedPanelsTabGroup { margin:0px; padding:0px; }
+.ad-TabbedPanelsTab {
+	position:relative;top:1px; float:left;font-size:14px; font-weight:bold; text-align:center; 
+	color:#999999; line-height:100%;padding:6px 20px;margin:0 4px 0 0;	
+	background-color: #f4f4f4;list-style: none;border:solid 1px #bebebe;border-bottom:none;
+	-moz-user-select: none;-khtml-user-select: none;cursor: pointer;outline:none;
+}
+.ad-TabbedPanelsTabHover { color:#333333;background:#FFFFFF; }
+.ad-TabbedPanelsTabSelected { background:#FFFFFF; border:1px solid #bebebe; border-bottom:solid 1px #FFFFFF; color:#333333; }
+.ad-TabbedPanelsTab a { color:#999999; text-decoration:none; }
+.ad-TabbedPanelsContentGroup { clear:both; }
+.ad-TabbedPanelsContent { padding:5px; background:#FFFFFF; border:solid 1px #bebebe; overflow:hidden; width:535px; }
+.ad-TabbedPanelsContent.ca-ad { padding:20px 0 0 0; border-left:none; border-right:none; width:450px; }
+/*.ad-TabbedPanelsTab.ad-TabbedPanelsTabSelected {  border:1px solid #bebebe;;border-bottom:none;color:#333333; }*/
+
+
+
+/**************/
+/* MyAccount -message */
+/**************/
+.ma-TabbedPanels { margin:0px; padding:0px; float:left; clear:none; width:100%; }
+/* width:100% - IE Hack to force proper layout when preceded by a paragraph. (hasLayout Bug)*/
+
+.ma-TabbedPanelsTabGroup { margin:0px; padding:0px; }
+.ma-TabbedPanelsTab {
+	position:relative;top:1px; float:left;font-size:14px; font-weight:bold; text-align:center; 
+	color:#999999; line-height:100%;padding:6px 20px;margin:0 4px 0 0;	
+	background-color: #f4f4f4;list-style: none;border:solid 1px #bebebe;border-bottom:none;
+	-moz-user-select: none;-khtml-user-select: none;cursor: pointer;outline:none;
+}
+.ma-TabbedPanelsTabHover { color:#333333;background:#FFFFFF; }
+.ma-TabbedPanelsTabSelected { background:#FFFFFF; border:1px solid #bebebe; border-bottom:solid 1px #FFFFFF; color:#333333; }
+.ma-TabbedPanelsTab a { color:#999999; text-decoration:none; }
+.ma-TabbedPanelsContentGroup { clear:both; }
+.ma-TabbedPanelsContent { padding:0px; background:#FFFFFF; border:solid 1px #bebebe; overflow:hidden; width:740px; }
+.ma-TabbedPanelsContent.ca-ad { padding:0; border-left:none; border-right:none; width:450px; }
+/*.ma-TabbedPanelsTab.ma-TabbedPanelsTabSelected {border:1px solid #bebebe;border-bottom:none;color:#333333; }*/

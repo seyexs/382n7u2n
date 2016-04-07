@@ -1,0 +1,37 @@
+Ext.define('Esmk.model.TBantuanProgram', {
+extend: 'Ext.data.Model',
+fields: [
+        {name: 'id', type: 'string'},
+            {name: 'tahun', type: 'string'},
+			{name: 'kode', type: 'string'},
+            {name: 'nama', type: 'string'},
+			{name: 'pengertian', type: 'string'},
+			{name: 'tujuan', type: 'string'},
+			{name: 'sasaran', type: 'string'},
+			{name: 'nilai_bantuan', type: 'string'},
+			{name: 'keterangan_nilai_bantuan', type: 'string'},
+			{name: 'pemanfaatan_dana', type: 'string'},
+            {name: 'keterangan', type: 'string'},
+            {name: 'file_doc_sk', type: 'string'},
+            {name: 'created_date', type: 'string'},
+            {name: 'created_by', type: 'string'},
+            {name: 'modified_date', type: 'string'},
+            {name: 'modified_by', type: 'string'},
+            {name: 'deleted', type: 'string'},
+            {name: 'r_bantuan_id', type: 'string'},
+			{name:'bentuk_bantuan',type:'string'},
+			{name: 'r_bantuan_name', type: 'string'},
+			{name: 'm_pegawai_nip', type: 'string'},
+			{name: 'm_pegawai_nama', type: 'string'},
+			{name: 'r_bantuan_penerima_id', type: 'string'},
+			{name: 'r_bantuan_penerima_nama', type: 'string'},
+			{name: 'r_bantuan_penerima_kode', type: 'string'},
+			{name: 't_kuesioner_id', type: 'string'},
+			{name:'t_bantuan_tim_pengelola_nama',type:'string'},
+			//{name:'tgl_cutoff_data_dapodikmen',type:'string'},
+			{name:'t_bantuan_persyaratan_penerima_inquery_id',type:'string'},
+			{name:'kode_wilayah',type:'string'},
+			
+			
+    ]
+});

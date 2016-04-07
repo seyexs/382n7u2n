@@ -1,0 +1,139 @@
+body{
+    font-family:Verdana, Arial, Helvetica, sans-serif;
+}
+.underlined{border-bottom:#000 1px solid;}
+.uppercase{text-transform:uppercase;}
+.bold{font-weight:bold}
+.fontbig{font-size:14px;}
+.fontmed{font-size:12px}
+.center{text-align:center}
+.right{text-align:right}
+
+
+table.tablebordermanual
+{
+    border-collapse: collapse;
+    border-spacing: 0px;
+    border-left:1px solid #000000;
+    border-right:1px solid #000000;
+    margin:0;
+}
+
+table.tablebordermanual tr td
+{
+    padding:8px 2px;
+}
+table.tablebordermanual tr.bfull td
+{
+    border:1px solid #000000;
+}
+table.tablebordermanual tr.bright td
+{
+    border-right:1px solid #000000;
+}
+table.tablebordermanual tr.bleft td
+{
+    border-left:1px solid #000000;
+}
+table.tablebordermanual tr.bbottom td
+{
+    border-bottom:1px solid #000000;
+}
+table.tablebordermanual tr.btop td
+{
+    border-top:1px solid #000000;
+}
+
+
+table.tablebordermanual tr.borderleftright td
+{
+    border-left:1px solid #000000;
+    border-right:1px solid #000000;
+}
+table.tablebordermanual tr td.bordertd
+{
+    border:1px solid #000000;
+}
+table.tablebordermanual tr td.bbottom
+{
+    border-bottom:1px solid #000000;
+}
+table.tablebordermanual tr td.btop
+{
+    border-top:1px solid #000000;
+}
+table.tablebordermanual tr td.bright
+{
+    border-right:1px solid #000000;
+}
+table.tablebordermanual tr td.bleft
+{
+    border-left:1px solid #000000;
+}
+
+/*nopadding*/
+
+table.tablenopadding tr td
+{
+    padding:2px 0;
+    margin:0;
+}
+table.tablenopadding
+{
+    padding:0;
+    border-collapse: collapse;
+    border-spacing: 0px;
+
+}
+
+/*span*/
+span.left
+{
+    float:left
+}
+span.right
+{
+    float:right;
+}
+
+#outer-table{ text-align: right;font-size:10px;}
+.blue-theme{ background-color: #c5d9f1; }
+.green-theme{ background-color: #c2d69a; }
+.blue-theme td { text-align: center; font-weight: bold; font-size:11px;}
+table.table-header-blue {margin-top: 10px;}
+table tr .numbering { font-weight: bold; font-size:10px;  }
+#outer-table .activity{ font-size: 10px; font-weight: bold;}
+#outer-table .activity .activity-number { text-align: center; }
+#outer-table .activity .activity-desc { text-align: left; }
+
+#outer-table .output td{ font-size: 10px; font-weight: bold; text-align: right;}
+#outer-table .output .activity-number { text-align: center; }
+#outer-table .output .activity-desc { text-align: left; }
+
+.spp-block{
+    float: left; border: solid 1px; width: 25px; height: 15px; display: block; margin-right: 5px; text-align: center;
+}
+
+table.td-left-padding tr td{
+    padding-left: 10px;
+    padding: 3px 4px 3px 8px;
+}
+
+table.akun-block tr td{
+    padding-top:1px;
+    padding-bottom:1px;
+}
+
+.no-top-border td{
+    border-top:0px;
+}
+
+table tr.no-spacing-line td{
+    padding-top:2;
+    padding-bottom:1;
+}
+
+table tr.single-spacing-line td{
+    padding-top:1;
+    padding-bottom:1;
+}

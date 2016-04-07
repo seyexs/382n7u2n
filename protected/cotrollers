@@ -1,0 +1,176 @@
+<?php
+
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ * Description of TProfilSiswaController
+ *
+ * @author obi
+ */
+class TProfilSiswaController extends Controller {
+
+    public $layout = '//layouts/column1';
+    public $modelSiswa;
+
+    public function init() {
+        parent::init();
+    }
+
+    /**
+     * @return array action filters
+     */
+    public function filters() {
+        return array(
+            'rights',
+        );
+    }
+
+    public function allowedActions() {
+        return '';
+    }
+
+    public function actionIndex() {
+        $model = new MSiswa('search');
+        if (isset($_GET['id'])) {
+            $model->findByPk($_GET['id']);
+        }
+        $this->render('index', array(
+            'model' => $model
+        ));
+    }
+
+    public function actionCheckingData() {
+        $msiswaid = $_POST['msiswaid'];
+        $model = MSiswa::model()->findByPk($msiswaid);
+        $this->modelSiswa = $model;
+        $biodata = $this->renderBiodata($model);
+        $data = array();
+        $data[] = array('id' => 'siswa-biodata', 'content' => $biodata);
+        $data[] = array('id' => 'siswa-histori-kelas', 'content' => $this->renderHistoriKelas());
+        $data[] = array('id' => 'siswa-aktivitas-hari-ini', 'content' => $this->renderAktivitasHariIni());
+        $data[] = array('id' => 'siswa-tatib', 'content' => $this->renderTatib());
+        $data[] = array('id' => 'siswa-ekskul', 'content' => $this->renderEkskul());
+        echo json_encode($data);
+    }
+
+    private function renderBiodata() {
+        ob_start();
+        $this->renderPartial('biodata/index', array('model' => $this->modelSiswa));
+        $biodata = ob_get_contents();
+        ob_end_clean();
+        return $biodata;
+    }
+
+    private function renderHistoriKelas() {
+        $model = new TSiswa('search');
+        $model->m_siswa_id = $this->modelSiswa->id;
+        ob_start();
+        $this->renderPartial('rombel/index', array('model' => $model));
+        $data = ob_get_contents();
+        ob_end_clean();
+        return $data;
+    }
+
+    private function renderAktivitasHariIni() {
+        $m = new TJadwalPelajaran;
+        $criteria = new CDbCriteria;
+        $criteria->select = 't.*,tps.keterangan_siswa as keterangan_siswa';
+        $criteria->join = 'INNER JOIN t_rombel tr ON t.t_rombel_id=tr.id INNER JOIN t_siswa ts ON ts.t_rombel_id=tr.id LEFT JOIN t_jurnal tj ON tj.t_jadwal_pelajaran_id=t.id LEFT JOIN t_presensi_siswa tps ON (tps.t_jurnal_id=tj.id AND tps.t_siswa_id=ts.id)';
+        $criteria->condition = 't.tanggal_perencanaan_pembelajaran=date(now()) and ts.m_siswa_id=:mid';
+        $criteria->params = array(':mid' => $this->modelSiswa->id);
+        $criteria->order = 't.t_hari_jam_pelajaran_id asc';
+        $model = new CActiveDataProvider('TJadwalPelajaran', array(
+                    'criteria' => $criteria,
+                ));
+        ob_start();
+        $this->renderPartial('aktivitas/index', array('model' => $model));
+        $data = ob_get_contents();
+        ob_end_clean();
+
+        return $data;
+        
+    }
+
+    private function renderTatib() {
+        $criteria = new CDbCriteria;
+        $criteria->join = 'inner join t_siswa ts on t.t_siswa_id=ts.id inner join t_rombel tr on ts.t_rombel_id=tr.id';
+        $criteria->condition = 'ts.m_siswa_id=:id';
+        $criteria->params = array(':id' => $this->modelSiswa->id);
+        $criteria->order = 'tr.flag_tingkat desc';
+        $model = new CActiveDataProvider('TTatibPelanggaran', array(
+                    'criteria' => $criteria,
+                ));
+        ob_start();
+        $this->renderPartial('tatib/index', array('model' => $model));
+        $data = ob_get_contents();
+        ob_end_clean();
+
+        return $data;
+    }
+    private function renderEkskul(){
+        $model=new TEkstrakurikulerSiswa('search');
+        $model->m_siswa_id=$this->modelSiswa->id;
+        ob_start();
+        $this->renderPartial('ekskul/index', array('model' => $model));
+        $data = ob_get_contents();
+        ob_end_clean();
+        return $data;
+    }
+    public function actionPilihSiswa() {
+        Yii::app()->session['profilsiswaid'] = $_POST['msiswaid'];
+    }
+
+    public function actionSearchSiswa() {
+        $this->layout = 'mainbasic';
+        $criteria = new CDbCriteria();
+        $params = array('pageSize' => 8);
+
+        if (!empty($_GET['MPerson']['nama']) || !empty($_GET['MSiswa']['nisn']) || !empty($_GET['MSiswa']['nis'])) {
+            $criteria = new CDbCriteria(array(
+                        'with' => array('mPerson'),
+                    ));
+            $keyword['t.nisn'] = $_GET['MSiswa']['nisn'];
+            $keyword['t.nis'] = $_GET['MSiswa']['nis'];
+            $keyword['mPerson.nama'] = $_GET['MPerson']['nama'];
+
+            $conds = array(); //$params = array();
+            $s = 0;
+            foreach ($keyword as $field => $key) {
+                if (!empty($key)) {
+                    $conds[] = $field . ' like :conds' . $s;
+                    $param[":conds$s"] = "%" . $key . "%";
+                    $s++;
+                }
+            }
+            $criteria->params = array_merge($criteria->params, $param);
+
+            if (count($conds) > 0) {
+                $co = implode(' and ', $conds);
+                $criteria->condition = $co;
+            }
+        }
+
+        $model = new MSiswa;
+        $modelPerson = new MPerson;
+
+        $model->unsetAttributes();
+        $modelPerson->unsetAttributes();
+
+        $dataProvider = new CActiveDataProvider('MSiswa', array(
+                    'pagination' => $params,
+                    'criteria' => $criteria
+                ));
+        //$this->debug($dataProvider);
+        $this->render('search', array(
+            'dataProvider' => $dataProvider,
+            'model' => $model,
+            'modelPerson' => $modelPerson
+        ));
+    }
+
+}
+
+?>
